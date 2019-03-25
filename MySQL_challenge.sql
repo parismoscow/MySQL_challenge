@@ -1,7 +1,7 @@
 -- 1a. Display the first and last names of all actors from the table `actor`.
 select first_name, last_name from actor;
 -- 1b
-UPDATE actor SET Actor_Name = CONCAT (first_name, ' '  ,last_name);
+UPDATE actor SET Actor_Name = CONCAT (upper(first_name), ' '  ,upper(last_name));
 -- 2a
 select * from actor WHERE first_name = "Joe";
 -- 2b
@@ -51,7 +51,9 @@ where Actor_Name = "HARPO WILLIAMS";
 -- 5a. You cannot locate the schema of the `address` table. 
 -- Which query would you use to re-create it?
 SHOW CREATE TABLE address;
- -- describe address;
+-- or
+describe address;
+-- or 
  CREATE TABLE IF NOT EXISTS
  `address` (
  `address_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
@@ -130,7 +132,7 @@ from actor where actor_id in
      WHERE title = "Alone Trip"
     )
  );
--- 7c*****. You want to run an email marketing campaign in Canada, for which you will need the names and email addresses of all Canadian customers. Use joins to retrieve this information.
+-- 7c. You want to run an email marketing campaign in Canada, for which you will need the names and email addresses of all Canadian customers. Use joins to retrieve this information.
 SELECT customer.first_name, customer.last_name, customer.email
  FROM customer
  WHERE address_id IN
@@ -158,10 +160,7 @@ select film_id from film_category where category_id in
 (
 select category_id from category where name="Family"
  ));
--- 0r 
-SELECT title, category
-FROM film_list
-WHERE category = 'Family';
+
 -- 7e****. Display the most frequently rented movies in descending order.
 select inventory.film_id, film_text.title, count(rental.inventory_id)
 from inventory
