@@ -161,15 +161,18 @@ select film_id from film_category where category_id in
 select category_id from category where name="Family"
  ));
 
--- 7e****. Display the most frequently rented movies in descending order.
-select inventory.film_id, film_text.title, count(rental.inventory_id)
-from inventory
+-- 7e. Display the most frequently rented movies in descending order.
+
+select film.title, count(rental.rental_id) as totalrev
+from film
+inner join inventory
+on inventory.film_id=film.film_id
 inner join rental
 on inventory.inventory_id=rental.inventory_id
-inner join film_text
-on inventory.film_id=film_text.film_id
-group by rental.inventory_id
-order by count(rental.inventory_id) desc, film_text.title asc;
+group by film.title
+order by count(rental.rental_id) desc, film.title asc;
+
+
 -- 7f. Write a query to display how much business, in dollars, each store brought in.
 select payment.staff_id, sum(amount)
 from payment
