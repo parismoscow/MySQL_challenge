@@ -18,7 +18,8 @@ where country in ('Afghanistan', 'Bangladesh', 'China');
 -- `description` and use the data type `BLOB` (Make sure to research the type `BLOB`, 
 -- as the difference between it and `VARCHAR` are significant).
 alter table actor
-add column description blob not null after Actor_name; 
+add column description blob not null after Actor_name;
+select * from actor; 
 --  3b. Very quickly you realize that entering descriptions for each actor is too much effort.
 --  Delete the `description` column.
 alter table actor
