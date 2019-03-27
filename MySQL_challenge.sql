@@ -153,6 +153,18 @@ SELECT customer.first_name, customer.last_name, customer.email
    )
   )
  );
+-- or 
+SELECT last_name, first_name, email
+FROM customer
+LEFT JOIN address
+on customer.address_id=address.address_id
+LEFT JOIN city
+on address.city_id=city.city_id
+LEFT JOIN country 
+ON city.country_id = country.country_id
+WHERE country = 'Canada';
+ 
+ 
 -- 7d. Sales have been lagging among young families, and you wish to target all family movies for a promotion. Identify all movies categorized as _family_ films.
 select title
 from film where film_id in
@@ -175,13 +187,14 @@ order by count(rental.rental_id) desc, film.title asc;
 
 
 -- 7f. Write a query to display how much business, in dollars, each store brought in.
-select payment.staff_id, sum(amount)
-from payment
+select * from staff;
+select store.store_id, sum(amount)
+from store
 inner join staff
-on payment.staff_id = staff.staff_id
-inner join store
 on store.store_id= staff.store_id
-group by payment.staff_id
+inner join payment
+on payment.staff_id= staff.staff_id
+group by store.store_id
 order by sum(amount);
 -- 7g. Write a query to display for each store its store ID, city, and country.
 select store.store_id,city.city, country.country
